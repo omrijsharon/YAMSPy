@@ -1398,11 +1398,9 @@ class MSPy:
         logging.info("Save to EPROM requested") # some configs also need reboot to be applied (not online).
         return self.send_RAW_msg(MSPy.MSPCodes['MSP_EEPROM_WRITE'], data=[])
 
-
-    def reboot(self):
+    def reboot(self, mode=[]):
         logging.info("Reboot requested")
-        return self.send_RAW_msg(MSPy.MSPCodes['MSP_SET_REBOOT'], data=[])
-
+        return self.send_RAW_msg(MSPy.MSPCodes['MSP_SET_REBOOT'], data=bytearray([mode]))
 
     def set_ARMING_DISABLE(self, armingDisabled=0, runawayTakeoffPreventionDisabled=0):
         """Disable Arming or runaway takeoff prevention
