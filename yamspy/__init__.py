@@ -2471,10 +2471,14 @@ class MSPy:
             self.BLACKBOX['blackboxDevice'] = self.readbytes(data, size=8, unsigned=True)
             self.BLACKBOX['blackboxRateNum'] = self.readbytes(data, size=8, unsigned=True)
             self.BLACKBOX['blackboxRateDenom'] = self.readbytes(data, size=8, unsigned=True)
-
-            self.BLACKBOX['blackboxPDenom'] = self.readbytes(data, size=16, unsigned=True)
+            # updated from bf configurator file '/src/js/msp/MSPHelper.js': line 1446
+            if self.CONFIG['apiVersion'][:4] == "1.36":
+                self.BLACKBOX['blackboxPDenom'] = self.readbytes(data, size=16, unsigned=True)
+            if self.CONFIG['apiVersion'][:4] == "1.44":
+                self.BLACKBOX['blackboxPDenom'] = self.readbytes(data, size=8, unsigned=True)
         else:
             pass # API no longer supported (INAV 2.3.0)
+
     def process_MSP_SET_BLACKBOX_CONFIG(self, data):
         logging.info("Blackbox config saved")
 
